@@ -41,5 +41,5 @@ variable "tags" {
 }
 
 variable "allow_remote_vpc_dns_resolution" {
-  default = true
+  default = ""
 }

@@ -5,7 +5,7 @@ provider "aws" {
 # Local onde é armazenado o state do terraform
 terraform {
   backend "s3" {
-    bucket = "terraform-delta"
+    bucket = "terraform-geru"
     key    = "state/data-lake/vpc/terraform.tfstate"
     region = "us-east-1"
   }
@@ -25,12 +25,13 @@ module "vpc" {
 
   cidr = "10.10.0.0/16"
 
-  azs                 = ["us-east-1a", "us-east-1b"]
-  private_subnets     = ["10.10.1.0/24", "10.10.2.0/24"]
-  public_subnets      = ["10.10.11.0/24", "10.10.12.0/24"]
+  azs                 = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  private_subnets     = ["10.10.1.0/24", "10.10.2.0/24", "10.10.3.0/24"]
+  public_subnets      = ["10.10.11.0/24", "10.10.12.0/24", "10.10.13.0/24"]
 
   enable_nat_gateway = true
   single_nat_gateway = true
+  enable_dns_hostnames = true
   
   public_subnet_tags = {
     Name = "data-lake-public"
@@ -49,6 +50,6 @@ module "vpc" {
   }
 
   tags = {
-    Name        = "data-lake"
+    Name = "data-lake"
   }
 }

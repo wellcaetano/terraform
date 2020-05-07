@@ -2,7 +2,7 @@
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
-    bucket = "terraform-delta"
+    bucket = "terraform-geru"
     key    = "state/data-lake/vpc/terraform.tfstate"
     region = "us-east-1"
   }
@@ -15,6 +15,10 @@ resource "aws_vpc_peering_connection" "peer" {
   peer_owner_id = "${var.peer_owner_id}"
   peer_region   = "${var.peer_region}"
   auto_accept   = false
+  tags = "${var.tags}"
+  requester {
+    allow_remote_vpc_dns_resolution = true
+  }
 }
 
 # Configuração de roteamento
